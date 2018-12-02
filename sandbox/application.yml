@@ -1,0 +1,44 @@
+keycloak:
+  auth-server-url: http://localhost:9090/auth/
+  resource: hello-app
+  realm: TestRealm
+  public-client: true
+  principal-attribute: preferred_username
+
+spring:
+  application: sandbox
+  main:
+      allow-bean-definition-overriding: true
+
+  datasource:
+    platform: postgres
+    initialize: false
+    url: jdbc:postgresql://localhost:5432/test_postgres_db?currentSchema=test_schema
+    username: postgres
+    password: pwd123
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+      org.hibernate.envers.store_data_at_delete: true
+
+  database:
+    driverClassName: org.postgresql.Driver
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+    template:
+      retry:
+        enabled: true
+        initial-interval: 3s
+
+messaging:
+  testexchange1: testexchange1
+  testqueue1: testqueue1
+  testroutingkey1: testroutingkey1
